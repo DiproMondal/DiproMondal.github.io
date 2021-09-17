@@ -7,27 +7,27 @@ paginate: 4
 plugins: [jekyll-paginate]
 port: 4000
 safe: true
-url: http://DiproMondal.github.io
-author: Dipro Mondal
+url: https://gyasi87.github.io
+author: Nicholas Essel
 
 # edit this section with your information
 # jekyller.github.io - all contents run on /vitae/
 # for a normal use at the base of the server change it to "/"
 baseurl: /
-title: Dipro Mondal's Resume
-name: Dipro Mondal
-email_full: mailto:dipro.mondal12ms@gmail.com
-website: github.io/dipro
-website_full: https://dipromondal.github.io
+title: Nicholas Essel's Resume
+name: Nicholas Essel
+email_full: mailto:nicholasg.essel@gmail.com
+website: github.com/gyasi87
+website_full: https://gyasi87.github.io/
 github: trending
-tel: +31 683920381
-tel_full: tel:+31 683920381
-google_maps: 'https://www.google.com/maps/place/Herensingel+7A,+2316+JS+Leiden'
+tel: +46 707170469
+tel_full: tel:+46 707170469
+google_maps: 
 address:
-  street: 7A Herensignel
-  postcode: 2316 JS
-  city: Leiden
-  country: the Netherlands
+  street: Emils Gata 21
+  postcode: 169 72
+  city: Stockholm
+  country: Sweden
 google_analytics: UA-69300817-1
 
 # needed for travis-ci build
