@@ -7,7 +7,7 @@ paginate: 4
 plugins: [jekyll-paginate]
 port: 4000
 safe: true
-url: http://DiproMondal.github.io/vitae
+url: https://gyasi87.github.io/vitae
 author: Dipro Mondal
 
 # edit this section with your information
