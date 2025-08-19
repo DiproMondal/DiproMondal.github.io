@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ site.title }}</title>
+    <meta name="description" content="{{ site.name }}'s Résumé">
+    <meta name="author" content="{{ site.name }} @{{ site.twitter }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="{{ site.baseurl }}static/css/base.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}static/css/skeleton.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}static/css/layout.css">
+	<link rel="stylesheet" href="{{ site.baseurl }}static/css/styles_mine.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="{{ site.baseurl }}static/img/favicon.ico">
+    <!-- <link rel="apple-touch-icon" href="static/img/me-icon-57.png"> -->
+    <!-- <link rel="apple-touch-icon" sizes="72x72" href="static/img/me-icon-72.png"> -->
+    <!-- <link rel="apple-touch-icon" sizes="114x114" href="static/img/me-icon-114.png"> -->
+</head>
+	<div class="navigation-wrapper">
+			<div class="nav-left-link">
+				<div class="nav-link-wrapper active-nav-link">
+					<a href="index.html">Portfolio</a>
+				</div>
+				<div class="nav-link-wrapper">
+					<a href="about.html"> About Me</a>
+				</div>
+				<div class="nav-link-wrapper">
+					<a href="projs.html">Projects</a>
+				</div>
+				<div class="nav-link-wrapper">
+					<a href="achievements.html">Achievements</a>
+				</div>
+			
+			</div>
+	</div>
+
+	<div class="container">
+		<div class="sticky">
+		<header class="three columns">
+			<br/>
+			<h1 >Dipro Mondal's Portfolio</h1>
+			<h1 class = "skipped">Contact</h1>
+			<p>
+				<a href="{{ site.tel_full }}">{{ site.tel }}</a>
+				<a href="mailto:dipro.mondal12ms@gmail.com"> <small> dipro.mondal12ms@gmail.com </small></a> 
+			</p>
+                        
+        <address>
+            <a href="{{ site.google_maps }}">
+                {{ site.address.street }}<br/>
+                {{ site.address.postcode }}<br/>
+                {{ site.address.city }}<br/>
+                {{ site.address.country }}
+            </a>
+        </address>
+        <p>
+            <a href="{{ site.website_full }}"><small> {{ site.website }}</small> </a><br/>
+        </p>
+        <p>
+            <a href="{{ site.email_full }}">{{ site.email }}</a><br/>
+            <a href="https://github.com/DiproMondal?tab=repositories"><i class="fa fa-github"></i> Github</a> <br/>
+            <a href="https://www.linkedin.com/in/dipro-mondal-96a85298/"><i class="fa fa-linkedin"></i> LinkedIn</a>
+        </p>
+		</header>
+		</div>
+		<div class="thirteen columns clearfix">
+			<img src="{{ site.baseurl }}static/img/profile.png" class="me">
+		
+
+			{{ content }}
+		</div>
+	</div>
+
+
+</body>
+</html>

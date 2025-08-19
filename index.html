@@ -1,31 +1,14 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="system">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dipro Mondal — Home</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-  <header class="site-header">
-    <a href="index.html" class="logo">DM</a>
-    <nav class="nav">
-      <a href="about.html">About</a>
-      <a href="cv.html">CV</a>
-      <a href="publications.html">Publications</a>
-      <a href="mailto:dipro.mondal12ms@gmail.com" class="cta">Contact</a>
-    </nav>
-    <button id="theme-toggle" class="theme-toggle">☀️/🌙</button>
-  </header>
+---
+layout: layout
+---
 
-  <section class="hero">
-    <h1>Hi, I'm Dipro Mondal</h1>
-    <p>Statistician · Reliability studies · Sample size & uncertainty</p>
-  </section>
 
-  <footer class="site-footer">
-    <p>© <span id="year"></span> Dipro Mondal</p>
-  </footer>
-  <script src="assets/js/main.js"></script>
-</body>
-</html>
+{% include employment.html %}
+
+{% include Activities.html %}
+
+{% include education.html %}
+
+{% include skills.html %}
+
+{% include interests.html %}
