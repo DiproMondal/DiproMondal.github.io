@@ -11,3 +11,12 @@ window.onload = () => {
   const saved = localStorage.getItem("theme");
   if (saved) document.documentElement.setAttribute("data-theme", saved);
 };
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll(".cv-toggle").forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      const card = toggle.closest(".cv-item");
+      card.classList.toggle("open");
+    });
+  });
+});

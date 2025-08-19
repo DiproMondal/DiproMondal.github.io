@@ -2,17 +2,17 @@
   --bg: #fff;
   --text: #111;
   --accent: #2563eb;
-  --card: #f9f9f9; /* add card background */
-  --muted: #555;   /* muted text */
-  --shadow: 0 2px 6px rgba(0,0,0,0.1);
+  --card: #f9f9f9;
+  --shadow: 0 2px 5px rgba(0,0,0,0.05);
+  --muted: #666;
 }
 html[data-theme='dark'] {
   --bg: #111;
   --text: #eee;
   --accent: #7aa2ff;
-  --card: #1a1a1a;
+  --card: #1c1c1c;
+  --shadow: 0 2px 6px rgba(0,0,0,0.3);
   --muted: #aaa;
-  --shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
 body {
@@ -20,83 +20,154 @@ body {
   font-family: system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
+  line-height: 1.6;
 }
 
+/* ---------------- HEADER ---------------- */
 .site-header {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
   border-bottom: 1px solid #ccc;
 }
-
-.nav a { margin-left: 1rem; color: var(--text); }
-
-.hero { text-align: center; padding: 5rem 1rem; }
-
-footer { text-align: center; padding: 1rem; }
-
-
-/* === TIMELINE CV STYLES === */
-.cv-section {
-  margin: 2rem 0;
+.nav a {
+  margin-left: 1rem;
+  color: var(--text);
+  text-decoration: none;
+}
+.nav a:hover {
+  color: var(--accent);
+}
+.logo {
+  font-weight: bold;
+  color: var(--accent);
+  text-decoration: none;
 }
 
+/* ---------------- HERO / FOOTER ---------------- */
+.hero { 
+  text-align: center; 
+  padding: 5rem 1rem; 
+}
+footer { 
+  text-align: center; 
+  padding: 1rem; 
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ---------------- CV SECTIONS ---------------- */
+.cv-section {
+  margin: 3rem 0;
+}
+.cv-section h2 {
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+  padding-bottom: 0.2rem;
+}
+
+/* Timeline */
 .timeline {
   position: relative;
-  margin: 2rem 0;
-  padding-left: 3rem; /* space for the timeline */
+  margin-left: 6rem;
+  padding-left: 2rem;
 }
-
 .timeline::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 1rem; /* position of the vertical line */
+  left: 3rem;
   width: 3px;
   height: 100%;
   background: var(--accent);
 }
 
+/* Card items */
 .cv-item {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   position: relative;
 }
-
-.cv-marker {
+.cv-left {
   position: absolute;
-  left: 0.5rem;
-  width: 16px;
-  height: 16px;
+  left: -6rem;
+  width: 5rem;
+  text-align: right;
+}
+.cv-marker {
+  width: 14px;
+  height: 14px;
   background: var(--accent);
   border-radius: 50%;
-  margin-top: 0.4rem;
-  box-shadow: 0 0 0 3px var(--bg);
+  display: inline-block;
+  margin-right: 0.3rem;
 }
-
+.cv-date {
+  font-size: 0.85rem;
+  color: var(--muted);
+  display: inline-block;
+  vertical-align: middle;
+}
 .cv-content {
-  margin-left: 3rem; /* shift content to the right of timeline */
   background: var(--card);
-  padding: 1.2rem 1.5rem;
-  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  border-radius: 6px;
   box-shadow: var(--shadow);
-  width: 100%;
+  flex: 1;
 }
-
 .cv-content h3 {
-  margin: 0 0 0.5rem;
+  margin-top: 0;
   font-size: 1.1rem;
 }
-
-.cv-dates {
-  font-weight: normal;
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin-left: 0.5rem;
-}
-
 .cv-institution {
   margin: 0.3rem 0 0.8rem;
   font-weight: 500;
+}
+.cv-institution a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.cv-institution a:hover {
+  text-decoration: underline;
+}
+
+/* ---------------- COLLAPSIBLE ---------------- */
+.cv-details {
+  display: none;
+  margin-top: 0.5rem;
+}
+.cv-item.open .cv-details {
+  display: block;
+}
+.cv-toggle {
+  cursor: pointer;
+  position: relative;
+  padding-right: 1.2rem;
+}
+.cv-toggle::after {
+  content: "▸"; /* right arrow */
+  position: absolute;
+  right: 0;
+  color: var(--accent);
+  transition: transform 0.2s ease;
+}
+.cv-item.open .cv-toggle::after {
+  transform: rotate(90deg); /* arrow down */
+}
+
+/* ---------------- PUBLICATIONS ---------------- */
+.pub-list {
+  margin-left: 1rem;
+}
+.pub-item {
+  margin-bottom: 1rem;
+}
+.pub-item a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.pub-item a:hover {
+  text-decoration: underline;
 }
