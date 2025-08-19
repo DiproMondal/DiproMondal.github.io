@@ -1,4 +1,3 @@
-// Simple BibTeX parser + renderer
 function parseBibTeX(text) {
   const entries = [];
   const regex = /@(\w+)\s*{\s*([^,]+),([\s\S]*?)}/g;
@@ -24,12 +23,15 @@ function renderPublications(entries) {
   container.innerHTML = "";
   entries
     .sort((a, b) => (b.fields.year || 0) - (a.fields.year || 0))
+    .reverse() // show latest first
     .forEach(e => {
       const title = e.fields.title || "Untitled";
       const authors = e.fields.author || "";
       const year = e.fields.year || "";
       const venue = e.fields.journal || e.fields.booktitle || "";
-      const doi = e.fields.doi ? `https://doi.org/${e.fields.doi}` : null;
+      const doi = e.fields.doi
+        ? `https://doi.org/${e.fields.doi.replace(/^https?:\/\/(dx\.)?doi.org\//, "")}`
+        : null;
 
       const div = document.createElement("div");
       div.className = "pub-item";
@@ -37,25 +39,8 @@ function renderPublications(entries) {
         <h3>${title}</h3>
         <p><strong>${authors}</strong> (${year})</p>
         <p><em>${venue}</em></p>
-        ${
-          doi
-            ? `<p><a href="${doi}" target="_blank">DOI Link</a></p>`
-            : ""
-        }
+        ${doi ? `<p><a href="${doi}" target="_blank">DOI Link</a></p>` : ""}
       `;
       container.appendChild(div);
     });
 }
-
-// Load refs.bib and render
-fetch("refs.bib")
-  .then(r => r.text())
-  .then(text => {
-    const entries = parseBibTeX(text);
-    renderPublications(entries);
-  })
-  .catch(err => {
-    console.error("Error loading refs.bib:", err);
-    document.getElementById("pub-list").textContent =
-      "Could not load publications.";
-  });
