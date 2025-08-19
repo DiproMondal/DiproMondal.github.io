@@ -1,0 +1,102 @@
+:root {
+  --bg: #fff;
+  --text: #111;
+  --accent: #2563eb;
+  --card: #f9f9f9; /* add card background */
+  --muted: #555;   /* muted text */
+  --shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+html[data-theme='dark'] {
+  --bg: #111;
+  --text: #eee;
+  --accent: #7aa2ff;
+  --card: #1a1a1a;
+  --muted: #aaa;
+  --shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.nav a { margin-left: 1rem; color: var(--text); }
+
+.hero { text-align: center; padding: 5rem 1rem; }
+
+footer { text-align: center; padding: 1rem; }
+
+
+/* === TIMELINE CV STYLES === */
+.cv-section {
+  margin: 2rem 0;
+}
+
+.timeline {
+  position: relative;
+  margin: 2rem 0;
+  padding-left: 3rem; /* space for the timeline */
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1rem; /* position of the vertical line */
+  width: 3px;
+  height: 100%;
+  background: var(--accent);
+}
+
+.cv-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.cv-marker {
+  position: absolute;
+  left: 0.5rem;
+  width: 16px;
+  height: 16px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-top: 0.4rem;
+  box-shadow: 0 0 0 3px var(--bg);
+}
+
+.cv-content {
+  margin-left: 3rem; /* shift content to the right of timeline */
+  background: var(--card);
+  padding: 1.2rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  width: 100%;
+}
+
+.cv-content h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.cv-dates {
+  font-weight: normal;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-left: 0.5rem;
+}
+
+.cv-institution {
+  margin: 0.3rem 0 0.8rem;
+  font-weight: 500;
+}
