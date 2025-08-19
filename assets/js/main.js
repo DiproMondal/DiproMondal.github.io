@@ -6,23 +6,20 @@ document.getElementById("theme-toggle")?.addEventListener("click", () => {
   localStorage.setItem("theme", root.getAttribute("data-theme"));
 });
 
-// Ensure everything runs after DOM is ready
-window.addEventListener("DOMContentLoaded", () => {
-  console.log("main.js loaded ✅");
+console.log("main.js loaded ✅");
 
-  // Insert year in footer
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+// Insert year in footer
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Restore saved theme
-  const saved = localStorage.getItem("theme");
-  if (saved) document.documentElement.setAttribute("data-theme", saved);
+// Restore saved theme
+const saved = localStorage.getItem("theme");
+if (saved) document.documentElement.setAttribute("data-theme", saved);
 
-  // Attach toggle listeners
-  document.querySelectorAll(".cv-toggle").forEach(toggle => {
-    toggle.addEventListener("click", () => {
-      const card = toggle.closest(".cv-item");
-      card.classList.toggle("open");
-    });
+// Attach toggle listeners
+document.querySelectorAll(".cv-toggle").forEach(toggle => {
+  toggle.addEventListener("click", () => {
+    const card = toggle.closest(".cv-item");
+    card.classList.toggle("open");
   });
 });
