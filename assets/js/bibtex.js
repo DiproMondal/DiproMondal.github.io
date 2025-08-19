@@ -9,7 +9,13 @@ function parseBibTeX(text) {
       const kv = line.split("=");
       if (kv.length >= 2) {
         const k = kv[0].trim().toLowerCase();
-        const v = kv.slice(1).join("=").replace(/[{}"]/g, "").trim();
+        const v = kv
+          .slice(1)
+          .join("=")
+          .replace(/[{}"]/g, "")
+          .replace(/\\textbf{([^}]*)}/g, "$1") // remove \textbf{}
+          .replace(/\\textit{([^}]*)}/g, "<em>$1</em>") // keep italics
+          .trim();
         fields[k] = v;
       }
     });
@@ -22,25 +28,44 @@ function renderPublications(entries) {
   const container = document.getElementById("pub-list");
   container.innerHTML = "";
   entries
-    .sort((a, b) => (b.fields.year || 0) - (a.fields.year || 0))
-    .reverse() // show latest first
+    .sort((a, b) => (b.fields.year || 0) - (a.fields.year || 0)) // newest first
     .forEach(e => {
-      const title = e.fields.title || "Untitled";
-      const authors = e.fields.author || "";
-      const year = e.fields.year || "";
-      const venue = e.fields.journal || e.fields.booktitle || "";
-      const doi = e.fields.doi
-        ? `https://doi.org/${e.fields.doi.replace(/^https?:\/\/(dx\.)?doi.org\//, "")}`
-        : null;
+      const f = e.fields;
+
+      const authors = f.author || "";
+      const title = f.title || "";
+      const journal = f.journal || "";
+      const year = f.year || "";
+      const volume = f.volume ? ` ${f.volume}` : "";
+      const number = f.number ? `(${f.number})` : "";
+      const pages = f.pages ? `:${f.pages}` : "";
+      const note = f.note ? f.note : "";
+
+      let content = `<p><strong>${authors}</strong> (${year}).<br>`;
+
+      // hyperlink only if url is present
+      if (f.url) {
+        content += `<a href="${f.url}" target="_blank">${title}</a>.`;
+      } else {
+        content += `${title}.`;
+      }
+
+      if (journal) {
+        content += ` <em>${journal}</em>`;
+        if (volume || number) content += volume + number;
+        if (pages) content += pages;
+        content += ".";
+      }
+
+      if (note) {
+        content += ` ${note}`;
+      }
+
+      content += "</p>";
 
       const div = document.createElement("div");
       div.className = "pub-item";
-      div.innerHTML = `
-        <h3>${title}</h3>
-        <p><strong>${authors}</strong> (${year})</p>
-        <p><em>${venue}</em></p>
-        ${doi ? `<p><a href="${doi}" target="_blank">DOI Link</a></p>` : ""}
-      `;
+      div.innerHTML = content;
       container.appendChild(div);
     });
 }

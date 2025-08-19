@@ -1,12 +1,10 @@
 <section class="cv-section">
   <h2>Publications</h2>
-  <p>Click DOI to view the full paper.</p>
-
   <div id="pub-list">Loading publications...</div>
 
   <script src="{{ '/assets/js/bibtex.js' | relative_url }}"></script>
   <script>
-  fetch("{{ '/refs.bib' | relative_url }}")
+  fetch("{{ '/assets/refs.bib' | relative_url }}")
     .then(r => r.text())
     .then(text => {
       const entries = parseBibTeX(text);
