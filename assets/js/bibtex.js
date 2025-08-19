@@ -9,17 +9,22 @@ function parseBibTeX(text) {
       const kv = line.split("=");
       if (kv.length >= 2) {
         const k = kv[0].trim().toLowerCase();
-        const v = kv
-          .slice(1)
-          .join("=")
-          .replace(/[{}"]/g, "")
-          .replace(/\\textbf{([^}]*)}/g, "$1") // remove \textbf{}
-          .replace(/\\textit{([^}]*)}/g, "<em>$1</em>") // keep italics
-          .trim();
+        let v = kv.slice(1).join("=").trim();
+
+        // strip braces/quotes
+        v = v.replace(/[{}"]/g, "");
+
+        // LaTeX cleanup
+        v = v.replace(/\\textbf\s*{([^}]*)}/g, "$1");
+        v = v.replace(/\\textit\s*{([^}]*)}/g, "<em>$1</em>");
+
+        // collapse multiple spaces
+        v = v.replace(/\s+/g, " ");
+
         fields[k] = v;
       }
     });
-    entries.push({ type, key, fields });
+    entries.push({ type: type.toLowerCase(), key, fields });
   }
   return entries;
 }
@@ -28,9 +33,11 @@ function renderPublications(entries) {
   const container = document.getElementById("pub-list");
   container.innerHTML = "";
   entries
-    .sort((a, b) => (b.fields.year || 0) - (a.fields.year || 0)) // newest first
+    .sort((a, b) => (b.fields.year || 0) - (a.fields.year || 0)) // newest last
+    .reverse() // newest first
     .forEach(e => {
       const f = e.fields;
+      if (!f.author && !f.title) return; // skip broken entries
 
       const authors = f.author || "";
       const title = f.title || "";
@@ -39,33 +46,38 @@ function renderPublications(entries) {
       const volume = f.volume ? ` ${f.volume}` : "";
       const number = f.number ? `(${f.number})` : "";
       const pages = f.pages ? `:${f.pages}` : "";
-      const note = f.note ? f.note : "";
+      const note = f.note || "";
 
-      let content = `<p><strong>${authors}</strong> (${year}).<br>`;
-
-      // hyperlink only if url is present
-      if (f.url) {
-        content += `<a href="${f.url}" target="_blank">${title}</a>.`;
-      } else {
-        content += `${title}.`;
+      // Special handling for unpublished / under review
+      let yearLabel = year ? `(${year})` : "";
+      if (e.type === "unpublished" || /under review/i.test(note)) {
+        yearLabel = year ? `(Under Review, ${year})` : `(Under Review)`;
       }
 
+      // hyperlink only if url is present
+      let titleHtml = title;
+      if (f.url) {
+        titleHtml = `<a href="${f.url}" target="_blank">${title}</a>`;
+      }
+
+      let html = `<p><strong>${authors}</strong> ${yearLabel}. ${titleHtml}.`;
+
       if (journal) {
-        content += ` <em>${journal}</em>`;
-        if (volume || number) content += volume + number;
-        if (pages) content += pages;
-        content += ".";
+        html += ` <em>${journal}</em>`;
+        if (volume || number) html += volume + number;
+        if (pages) html += pages;
+        html += ".";
       }
 
       if (note) {
-        content += ` ${note}`;
+        html += ` ${note}`;
       }
 
-      content += "</p>";
+      html += "</p>";
 
       const div = document.createElement("div");
       div.className = "pub-item";
-      div.innerHTML = content;
+      div.innerHTML = html;
       container.appendChild(div);
     });
 }
